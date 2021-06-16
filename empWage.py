@@ -1,16 +1,20 @@
 import random
-class EmployeeWage:
-    empDailyWage = 0
-    wage_Per_Hour = 20
-    workHour = 0
-    dailyWage = 0
-    isAbsent = 0
-    isFullTime = 1
-    isPartTime = 2
-    fullTimeHours = 8
-    partTimeHours = 4
 
-    def checkAttendance(cls):
+
+class Employee_wage:
+    emp_daily_wage = 0
+    wage_Per_Hour = 20
+    work_hour = 0
+    daily_wage = 0
+    is_absent = 0
+    is_fulltime = 1
+    is_part_time = 2
+    full_time_hours = 8
+    part_time_hours = 4
+
+
+    @staticmethod
+    def check_attendance():
         """
         -This method will get the workHour according to the attendance which will generate random numbers.
         :return:workHour
@@ -18,43 +22,43 @@ class EmployeeWage:
         attendance = (random.randint(0, 2))
         if attendance == 1:
             print('Employee is present full time')
-            EmployeeWage.workHour = 8
+            Employee_wage.work_hour = 8
         elif attendance == 2:
             print('Employee is present part time')
-            EmployeeWage.workHour = 4
+            Employee_wage.work_hour = 4
         else:
             print('Employee is absent')
-            EmployeeWage.workHour = 0
-        return EmployeeWage.workHour
+            Employee_wage.work_hour = 0
+        return Employee_wage.work_hour
 
-    def calculateMonthlyWage(self):
+    def calculate_monthly_wage(self, company_name, max_hr_per_month, total_days, wage_per_hr):
         """
         -this one is an instance method where i have called checkAttendance method to get workHours.
         -calculate monthly wage.
         -Here i have added a condition (Calculate monthly wage till 100 hrs and 20 days)
-        :return: monthlyWage
+        :return: monthly_wage
         """
-        monthlyWage = 0
-        monthlyWage = 0
-        empHours = 0
+        monthly_wage = 0
+        emp_hours = 0
         day = 1
-        while (empHours < 100) and (day < 20):
-            EmployeeWage.checkAttendance(self)
-            empHours = empHours + EmployeeWage.workHour
-            dailyWage = EmployeeWage.wage_Per_Hour * EmployeeWage.workHour
-            print(f"Employee daily Wage is : {dailyWage}")
-            monthlyWage = monthlyWage + dailyWage
-            monthlyWage = monthlyWage + EmployeeWage.empDailyWage
+        while (emp_hours < max_hr_per_month) and (day < total_days):
+            Employee_wage.check_attendance()
+            emp_hours = emp_hours + Employee_wage.work_hour
+            daily_wage = wage_per_hr * Employee_wage.work_hour
+            print(f"Employee daily Wage is : {daily_wage}")
+            monthly_wage = monthly_wage + daily_wage
             day = day + 1
-        print(f"Employee hours : {empHours} and Days : {day}")
-        if empHours > 100:
-            monthlyWage -= EmployeeWage.empDailyWage
-            empHours -= EmployeeWage.workHour
-            print(f"Employee hours : {empHours} and Days : {day}")
-        print(f"\nEmployee's Salary for the Entire Month is: {monthlyWage}")
+        print(f"Company name is {company_name}\nEmployee hours : {emp_hours} and Days : {day}")
+        if emp_hours > 100:
+            monthly_wage -= daily_wage
+            emp_hours -= Employee_wage.work_hour
+            print(f"Employee hours : {emp_hours} and Days : {day}")
+        print(f"\nEmployee's Salary for the Entire Month is: {monthly_wage}")
 
 
 if __name__ == '__main__':
     print('Welcome to Employee Wage Computation Program')
-    emp = EmployeeWage()
-    print(emp.calculateMonthlyWage())
+    bridgelabz = Employee_wage()
+    print(bridgelabz.calculate_monthly_wage("Bridgelabz", 100, 20, 20))
+    amazon = Employee_wage()
+    print(amazon.calculate_monthly_wage("Amazon", 100, 20, 15))
