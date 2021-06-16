@@ -1,5 +1,6 @@
 import random
 class EmployeeWage:
+    empDailyWage = 0
     wage_Per_Hour = 20
     workHour = 0
     dailyWage = 0
@@ -30,16 +31,27 @@ class EmployeeWage:
         """
         -this one is an instance method where i have called checkAttendance method to get workHours.
         -calculate monthly wage.
+        -Here i have added a condition (Calculate monthly wage till 100 hrs and 20 days)
         :return: monthlyWage
         """
         monthlyWage = 0
-        for day in range(1, 21):
+        monthlyWage = 0
+        empHours = 0
+        day = 1
+        while (empHours < 100) and (day < 20):
             EmployeeWage.checkAttendance(self)
+            empHours = empHours + EmployeeWage.workHour
             dailyWage = EmployeeWage.wage_Per_Hour * EmployeeWage.workHour
             print(f"Employee daily Wage is : {dailyWage}")
             monthlyWage = monthlyWage + dailyWage
-        else:
-            print("Employes's monthly salary", monthlyWage)
+            monthlyWage = monthlyWage + EmployeeWage.empDailyWage
+            day = day + 1
+        print(f"Employee hours : {empHours} and Days : {day}")
+        if empHours > 100:
+            monthlyWage -= EmployeeWage.empDailyWage
+            empHours -= EmployeeWage.workHour
+            print(f"Employee hours : {empHours} and Days : {day}")
+        print(f"\nEmployee's Salary for the Entire Month is: {monthlyWage}")
 
 
 if __name__ == '__main__':
