@@ -12,6 +12,11 @@ class Employee_wage:
     full_time_hours = 8
     part_time_hours = 4
 
+    def __init__(self, company_name, max_hr_per_month, total_days, wage_per_hr):
+        self.company_name = company_name
+        self.max_hr_per_month = max_hr_per_month
+        self.total_days = total_days
+        self.wage_per_hr = wage_per_hr
 
     @staticmethod
     def check_attendance():
@@ -31,7 +36,7 @@ class Employee_wage:
             Employee_wage.work_hour = 0
         return Employee_wage.work_hour
 
-    def calculate_monthly_wage(self, company_name, max_hr_per_month, total_days, wage_per_hr):
+    def calculate_monthly_wage(self):
         """
         -this one is an instance method where i have called checkAttendance method to get workHours.
         -calculate monthly wage.
@@ -41,14 +46,14 @@ class Employee_wage:
         monthly_wage = 0
         emp_hours = 0
         day = 1
-        while (emp_hours < max_hr_per_month) and (day < total_days):
+        while (emp_hours < self.max_hr_per_month) and (day < self.total_days):
             Employee_wage.check_attendance()
             emp_hours = emp_hours + Employee_wage.work_hour
-            daily_wage = wage_per_hr * Employee_wage.work_hour
+            daily_wage = self.wage_per_hr * Employee_wage.work_hour
             print(f"Employee daily Wage is : {daily_wage}")
             monthly_wage = monthly_wage + daily_wage
             day = day + 1
-        print(f"Company name is {company_name}\nEmployee hours : {emp_hours} and Days : {day}")
+        print(f"Company name is {self.company_name}\nEmployee hours : {emp_hours} and Days : {day}")
         if emp_hours > 100:
             monthly_wage -= daily_wage
             emp_hours -= Employee_wage.work_hour
@@ -58,7 +63,7 @@ class Employee_wage:
 
 if __name__ == '__main__':
     print('Welcome to Employee Wage Computation Program')
-    bridgelabz = Employee_wage()
-    print(bridgelabz.calculate_monthly_wage("Bridgelabz", 100, 20, 20))
-    amazon = Employee_wage()
-    print(amazon.calculate_monthly_wage("Amazon", 100, 20, 15))
+    bridgelabz = Employee_wage("Bridgelabz", 100, 20, 20)
+    print(bridgelabz.calculate_monthly_wage())
+    amazon = Employee_wage("Amazon", 100, 20, 15)
+    print(amazon.calculate_monthly_wage())
