@@ -1,7 +1,11 @@
 import random
+from Emp_wage_Interface import Emp_interface
 
 
-class Emp_wage_builder:
+class Emp_wage_builder(Emp_interface):
+    """
+    -Here i have implemented the abstract methods of Emp_interface class.
+    """
     company_list = []
 
     def __init__(self, *company):
