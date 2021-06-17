@@ -1,20 +1,29 @@
 import random
-from Emp_wage_Interface import Emp_interface
+
+from Emp_wage_Interface import EmpInterface
+from CompanyEmpWage import CompanyEmpWage
 
 
-class Emp_wage_builder(Emp_interface):
+class EmpWageBuilder(EmpInterface):
     """
     -Here i have implemented the abstract methods of Emp_interface class.
     """
+
     company_list = []
 
-    def __init__(self, *company):
+    def add_company(self, company_name, max_hr_per_month, total_days, wage_per_hr):
         """
-        -Here i have used *args to take multiple arguments.
-        -According to that i have taken multiple objects and while initializing i have added all the elements in the list.
-        :param company:
+        -This method will add company details by object of CompanyEmpWage.
+        -Append the data to company_list.
+        :param company_name:
+        :param max_hr_per_month:
+        :param total_days:
+        :param wage_per_hr:
+        :return:
         """
-        self.company_list.extend(company)
+        employee_info = CompanyEmpWage(company_name, max_hr_per_month, total_days, wage_per_hr)
+        self.company_list.append(employee_info)
+        return employee_info
 
     def check_attendance(self):
         """
@@ -33,7 +42,7 @@ class Emp_wage_builder(Emp_interface):
             self.work_hour = 0
         return self.work_hour
 
-    def calculate_monthly_wage(self, company):
+    def calculate_monthly_wage(self, employee_info):
         """
         -this one is an instance method where i have called checkAttendance method to get workHours.
         -calculate monthly wage.
@@ -43,23 +52,16 @@ class Emp_wage_builder(Emp_interface):
         monthly_wage = 0
         emp_hours = 0
         day = 1
-        while (emp_hours < company.max_hr_per_month) and (day < company.total_days):
+        while (emp_hours < employee_info.max_hr_per_month) and (day < employee_info.total_days):
             self.check_attendance()
             emp_hours = emp_hours + self.work_hour
-            daily_wage = company.wage_per_hr * self.work_hour
+            daily_wage = employee_info.wage_per_hr * self.work_hour
             print(f"Employee daily Wage is : {daily_wage}")
             monthly_wage = monthly_wage + daily_wage
             day = day + 1
-        print(f"Company name is {company.company_name}\nEmployee hours : {emp_hours} and Days : {day}")
+        print(f"Company name is {employee_info.company_name}\nEmployee hours : {emp_hours} and Days : {day}")
         if emp_hours > 100:
             monthly_wage -= daily_wage
             emp_hours -= self.work_hour
             print(f"Employee hours : {emp_hours} and Days : {day}")
         print(f"\nEmployee's Salary for the Entire Month is: {monthly_wage}\n")
-
-    def company_emp_wage(self):
-        """
-        -This method will iterate and get each object and call calculate_monthly_wage.
-        """
-        for company in self.company_list:
-            self.calculate_monthly_wage(company)

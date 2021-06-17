@@ -1,7 +1,7 @@
 from abc import *
 
 
-class Emp_interface(ABC):
+class EmpInterface(ABC):
     """
     -Here i have added interface approach
     -In which i have added abstract methods and later i have implemented by Emp_wage_builder class.
@@ -15,5 +15,5 @@ class Emp_interface(ABC):
         pass
 
     @abstractmethod
-    def company_emp_wage(self):
+    def add_company(self, company_name, max_hr_per_month, total_days, wage_per_hr):
         pass

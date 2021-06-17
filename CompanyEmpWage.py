@@ -1,5 +1,5 @@
 
-class Company_emp_wage:
+class CompanyEmpWage:
 
     def __init__(self, company_name, max_hr_per_month, total_days, wage_per_hr):
         """
