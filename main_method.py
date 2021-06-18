@@ -16,7 +16,7 @@ if __name__ == '__main__':
         print("Invalid", e)
 
     """Here i have implemented logging."""
-    logging.basicConfig(filename="EmpWage.log",
+    logging.basicConfig(filename="EmpWage.txt",
                         format='%(asctime)s %(message)s',
                         filemode='w')
     logger = logging.getLogger()
