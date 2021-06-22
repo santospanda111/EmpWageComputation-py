@@ -2,7 +2,8 @@ import random
 
 from Emp_wage_Interface import EmpInterface
 from CompanyEmpWage import CompanyEmpWage
-from EmpWageException import Emp_Wage_Exception
+from EmpWageException import EmpWageException
+import json
 
 class EmpWageBuilder(EmpInterface):
     """
@@ -28,7 +29,7 @@ class EmpWageBuilder(EmpInterface):
             employee_info = CompanyEmpWage(company_name, max_hr_per_month, total_days, wage_per_hr)
             self.company_list.append(employee_info)
             if len(self.company_list) == 0:
-                raise Emp_Wage_Exception(' List is empty ')
+                raise EmpWageException(' List is empty ')
             return employee_info
         except Exception as e:
             print("Invalid", e)
@@ -44,7 +45,7 @@ class EmpWageBuilder(EmpInterface):
                 1: 8,
                 2: 4
             }
-            return switcher.get(attendance)
+            return switcher.get(attendance, 0)
         except Exception as e:
             print("Invalid", e)
 
@@ -77,6 +78,8 @@ class EmpWageBuilder(EmpInterface):
                 emp_hours -= work_hour
                 print(f"Employee hours : {emp_hours} and Days : {day}")
             self.company_dict[employee_info.company_name] = monthly_wage
+            with open("D:\PythonBridgelabz\EmployeeWagePy\emp_wage.json",'a') as json_file:
+                json.dump(self.company_dict, json_file)
             print(f"\nEmployee's Salary for the Entire Month is: {monthly_wage}\n")
         except Exception as e:
             print("Invalid", e)

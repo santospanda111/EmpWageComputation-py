@@ -1,5 +1,10 @@
 from EmpWageBuilder import EmpWageBuilder
 import logging
+logging.basicConfig(filename="emp_wage1.log",
+                    format='%(asctime)s %(message)s',
+                    filemode='w')
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
 
 if __name__ == '__main__':
     try:
@@ -16,11 +21,6 @@ if __name__ == '__main__':
         print("Invalid", e)
 
     """Here i have implemented logging."""
-    logging.basicConfig(filename="EmpWage.txt",
-                        format='%(asctime)s %(message)s',
-                        filemode='w')
-    logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
     logger.debug("Debug Message....")
     logger.info("Information.....")
     logger.warning("Warning.....")

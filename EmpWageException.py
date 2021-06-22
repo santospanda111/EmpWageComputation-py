@@ -1,4 +1,4 @@
-class Emp_Wage_Exception(Exception):
+class EmpWageException(Exception):
     """
     Creating a class for custom exceptions which is inherited Exception class
     """
