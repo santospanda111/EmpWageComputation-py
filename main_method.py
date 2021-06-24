@@ -1,6 +1,6 @@
 from EmpWageBuilder import EmpWageBuilder
 import logging
-logging.basicConfig(filename="emp_wage1.log",
+logging.basicConfig(filename="emp_wage.log",
                     format='%(asctime)s %(message)s',
                     filemode='w')
 logger = logging.getLogger()

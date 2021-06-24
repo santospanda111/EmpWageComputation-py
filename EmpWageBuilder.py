@@ -1,9 +1,11 @@
 import random
-
+import logging
 from Emp_wage_Interface import EmpInterface
 from CompanyEmpWage import CompanyEmpWage
 from EmpWageException import EmpWageException
 import json
+logger = logging.getLogger()
+
 
 class EmpWageBuilder(EmpInterface):
     """
@@ -32,7 +34,7 @@ class EmpWageBuilder(EmpInterface):
                 raise EmpWageException(' List is empty ')
             return employee_info
         except Exception as e:
-            print("Invalid", e)
+            logger.error(e)
 
     def check_attendance(self, attendance):
         """
@@ -47,7 +49,7 @@ class EmpWageBuilder(EmpInterface):
             }
             return switcher.get(attendance, 0)
         except Exception as e:
-            print("Invalid", e)
+            logger.error(e)
 
     def calculate_monthly_wage(self, employee_info):
         """
@@ -78,11 +80,12 @@ class EmpWageBuilder(EmpInterface):
                 emp_hours -= work_hour
                 print(f"Employee hours : {emp_hours} and Days : {day}")
             self.company_dict[employee_info.company_name] = monthly_wage
-            with open("D:\PythonBridgelabz\EmployeeWagePy\emp_wage.json",'a') as json_file:
-                json.dump(self.company_dict, json_file)
+            EmpWageBuilder.json_file_operation(self.company_dict)
+        except FileNotFoundError as ex:
+            logger.error(ex)
             print(f"\nEmployee's Salary for the Entire Month is: {monthly_wage}\n")
         except Exception as e:
-            print("Invalid", e)
+            logger.error(e)
 
     def find_wage_by_company(self, company):
         """
@@ -94,7 +97,12 @@ class EmpWageBuilder(EmpInterface):
             if company in self.company_dict.keys():
                 total_wage = self.company_dict.get(company)
                 print(f"Total wage of {company} is Rs {total_wage}/-")
-            else:
-                print(f"{company} isn't present....\nTry another one...")
+            print(f"{company} isn't present....\nTry another one...")
         except Exception as e:
-            print("Invalid", e)
+            logger.error(e)
+
+    @staticmethod
+    def json_file_operation(dict_data):
+        with open('D:\PythonBridgelabz\EmployeeWagePy\emp_wage.json', 'a+') as json_file:
+            json.dump(dict_data, json_file)
+            json_file.write("\n")
